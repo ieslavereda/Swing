@@ -1,25 +1,28 @@
 package frames;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.GridBagLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import javafx.stage.FileChooser;
+
 import java.awt.Color;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class Ejemplo1 extends JFrame {
 
@@ -34,6 +37,10 @@ public class Ejemplo1 extends JFrame {
 	private JTextField textFieldNombre;
 	private Queue<Alumno> alumnos;
 	private Nodo<Alumno> aux;
+	private JMenuBar menuBar;
+	private JMenu mnFile;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmSave;
 
 	/**
 	 * Launch the application.
@@ -66,6 +73,24 @@ public class Ejemplo1 extends JFrame {
 		setTitle("Mi primer Frame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 417, 359);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+		
+		mntmOpen = new JMenuItem("Open");
+		mnFile.add(mntmOpen);
+		
+		mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				save();
+			}
+		});
+		
+		mnFile.add(mntmSave);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -195,6 +220,14 @@ public class Ejemplo1 extends JFrame {
 		showNode(aux);
 	}
 
+
+
+	protected void save() {
+		
+		FileChooser fc = new FileChooser();
+		
+	}
+
 	protected void removeNode() {
 		alumnos.remove(aux);
 		aux = alumnos.getHead();
@@ -238,6 +271,7 @@ public class Ejemplo1 extends JFrame {
 		btnLeft.setEnabled(true);
 
 		if (nodo == null) {
+			
 			btnRight.setEnabled(false);
 			btnLeft.setEnabled(false);
 			btnRemove.setEnabled(false);
