@@ -1,6 +1,8 @@
 package frames;
 
-public class Alumno {
+import java.io.Serializable;
+
+public class Alumno implements Serializable{
 	
 	private String nombre;
 	private String apellidos;

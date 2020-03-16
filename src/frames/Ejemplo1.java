@@ -8,14 +8,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import javafx.stage.FileChooser;
+
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -23,6 +32,14 @@ import javax.swing.JTextField;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import java.awt.GridLayout;
+import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 
 public class Ejemplo1 extends JFrame {
 
@@ -41,6 +58,13 @@ public class Ejemplo1 extends JFrame {
 	private JMenu mnFile;
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
+	private JMenuItem mntmExit;
+	private JComboBox comboBox;
+	private JLabel lblSexo;
+	private JPanel panel_3;
+	private final String[] provincias = {"Álava","Albacete","Alicante","Almería","Asturias","Ávila","Badajoz","Barcelona","Burgos","Cáceres","Cádiz","Cantabria","Castellón","Ciudad Real","Córdoba","La Coruña","Cuenca","Gerona","Granada","Guadalajara","Guipúzcoa","Huelva","Huesca","Islas Baleares","Jaén","León","Lérida","Lugo","Madrid","Málaga","Murcia","Navarra","Orense","Palencia","Las Palmas","Pontevedra","La Rioja","Salamanca","Segovia","Sevilla","Soria","Tarragona","Santa Cruz de Tenerife","Teruel","Toledo","Valencia","Valladolid","Vizcaya","Zamora","Zaragoza"};
+	private JRadioButton rdbtnM;
+	private JRadioButton rdbtnH;
 
 	/**
 	 * Launch the application.
@@ -81,6 +105,11 @@ public class Ejemplo1 extends JFrame {
 		menuBar.add(mnFile);
 		
 		mntmOpen = new JMenuItem("Open");
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cargarDatos();
+			}
+		});
 		mnFile.add(mntmOpen);
 		
 		mntmSave = new JMenuItem("Save");
@@ -91,6 +120,17 @@ public class Ejemplo1 extends JFrame {
 		});
 		
 		mnFile.add(mntmSave);
+		
+		mntmExit = new JMenuItem("Exit");
+		mntmExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		JSeparator separator = new JSeparator();
+		mnFile.add(separator);
+		mnFile.add(mntmExit);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -171,6 +211,20 @@ public class Ejemplo1 extends JFrame {
 			}
 		});
 		panelInferior.add(btnRight);
+		
+		JButton btnTest = new JButton("test");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Has selecionado M: " + rdbtnM.isSelected());
+				System.out.println("Has selecionado H: " + rdbtnH.isSelected());
+				
+				System.out.println("Seleccionado el objeto de la posicion: " + comboBox.getSelectedIndex());
+				System.out.println("Seleccionado el objeto: " + comboBox.getSelectedItem());
+				
+			}
+		});
+		panelInferior.add(btnTest);
 
 		JLabel lblNombre = new JLabel("Nombre");
 
@@ -186,34 +240,90 @@ public class Ejemplo1 extends JFrame {
 
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
+		
+		JPanel panel = new JPanel();
 		GroupLayout gl_panelSuperior = new GroupLayout(panelSuperior);
-		gl_panelSuperior.setHorizontalGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSuperior.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING).addComponent(lblNombre)
-								.addComponent(lblApellidos).addComponent(lblTelefono))
-						.addGap(28)
-						.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
+		gl_panelSuperior.setHorizontalGroup(
+			gl_panelSuperior.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelSuperior.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panelSuperior.createSequentialGroup()
+							.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNombre)
+								.addComponent(lblApellidos)
+								.addComponent(lblTelefono))
+							.addGap(28)
+							.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panelSuperior.createSequentialGroup()
-										.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE))
-								.addComponent(textFieldNombre, GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-								.addComponent(textFieldApellidos, GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
-						.addContainerGap()));
-		gl_panelSuperior.setVerticalGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panelSuperior.createSequentialGroup().addContainerGap()
-						.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE).addComponent(lblNombre)
-								.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE).addComponent(lblApellidos)
-								.addComponent(textFieldApellidos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE).addComponent(lblTelefono)
-								.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addContainerGap(130, Short.MAX_VALUE)));
+									.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 182, Short.MAX_VALUE))
+								.addComponent(textFieldNombre, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
+								.addComponent(textFieldApellidos, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_panelSuperior.setVerticalGroup(
+			gl_panelSuperior.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelSuperior.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNombre)
+						.addComponent(textFieldNombre, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblApellidos)
+						.addComponent(textFieldApellidos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTelefono)
+						.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+		);
+		panel.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1);
+		panel_1.setLayout(new GridLayout(2, 0, 0, 0));
+		
+		JLabel lblProvincia = new JLabel("Provincia");
+		lblProvincia.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_1.add(lblProvincia);
+		
+		comboBox = new JComboBox();
+		comboBox.setMaximumRowCount(10);
+		
+		//comboBox.setModel(new DefaultComboBoxModel(new String[] {"Valencia", "Madrid"}));
+		for(String provincia : provincias)
+			comboBox.addItem(provincia);
+		
+		panel_1.add(comboBox);
+		
+		JPanel panel_2 = new JPanel();
+		panel.add(panel_2);
+		panel_2.setLayout(new GridLayout(2, 0, 0, 0));
+		
+		lblSexo = new JLabel("Sexo");
+		lblSexo.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_2.add(lblSexo);
+		
+		panel_3 = new JPanel();
+		panel_2.add(panel_3);
+		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		rdbtnM = new JRadioButton("M");
+		rdbtnH = new JRadioButton("H");
+		panel_3.add(rdbtnM);		
+		panel_3.add(rdbtnH);
+		
+		
+		
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(rdbtnH);
+		bg.add(rdbtnM);		
+		rdbtnM.setSelected(true);
+		
 		panelSuperior.setLayout(gl_panelSuperior);
 		contentPane.setLayout(gl_contentPane);
 
@@ -222,9 +332,53 @@ public class Ejemplo1 extends JFrame {
 
 
 
+	protected void cargarDatos() {
+		
+		JFileChooser fc = new JFileChooser();
+		int option = fc.showOpenDialog(this);
+		
+		if(option==JFileChooser.APPROVE_OPTION) {
+			
+			try(ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fc.getSelectedFile())))){
+				
+				alumnos = (Queue<Alumno>)in.readObject();
+				JOptionPane.showMessageDialog(this, "El fichero se ha cargado con exito", "Info", JOptionPane.INFORMATION_MESSAGE);
+				
+				aux=alumnos.getHead();
+				showNode(aux);
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+			
+			
+		}
+		
+		
+	}
+
 	protected void save() {
 		
-		FileChooser fc = new FileChooser();
+		JFileChooser fc = new JFileChooser();
+		
+		int opcion=fc.showSaveDialog(this);
+		
+		if(opcion == JFileChooser.APPROVE_OPTION) {
+			
+			try(ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fc.getSelectedFile())))){
+				
+				out.writeObject(alumnos);
+				JOptionPane.showMessageDialog(this, "El proceso de grabacion se ha realizado correctamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+				
+			} catch (Exception e) {
+				
+				JOptionPane.showMessageDialog(this, "Se ha producido un error", "Error", JOptionPane.ERROR_MESSAGE);
+				
+				e.printStackTrace();
+			}
+			
+		}
 		
 	}
 
