@@ -96,7 +96,7 @@ public class Ejemplo1 extends JFrame {
 
 		setTitle("Mi primer Frame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 417, 359);
+		setBounds(100, 100, 658, 520);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -313,8 +313,10 @@ public class Ejemplo1 extends JFrame {
 		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		rdbtnM = new JRadioButton("M");
-		rdbtnH = new JRadioButton("H");
 		panel_3.add(rdbtnM);		
+		
+		rdbtnM.setSelected(true);
+		rdbtnH = new JRadioButton("H");
 		panel_3.add(rdbtnH);
 		
 		
@@ -322,8 +324,6 @@ public class Ejemplo1 extends JFrame {
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnH);
 		bg.add(rdbtnM);		
-		rdbtnM.setSelected(true);
-		
 		panelSuperior.setLayout(gl_panelSuperior);
 		contentPane.setLayout(gl_contentPane);
 
@@ -373,8 +373,7 @@ public class Ejemplo1 extends JFrame {
 				
 			} catch (Exception e) {
 				
-				JOptionPane.showMessageDialog(this, "Se ha producido un error", "Error", JOptionPane.ERROR_MESSAGE);
-				
+				JOptionPane.showMessageDialog(this, "Se ha producido un error", "Error", JOptionPane.ERROR_MESSAGE);				
 				e.printStackTrace();
 			}
 			
