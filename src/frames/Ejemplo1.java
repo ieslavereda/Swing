@@ -321,6 +321,7 @@ public class Ejemplo1 extends JFrame {
 		
 		
 		
+		
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnH);
 		bg.add(rdbtnM);		
