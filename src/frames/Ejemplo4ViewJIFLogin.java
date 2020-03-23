@@ -25,6 +25,7 @@ public class Ejemplo4ViewJIFLogin extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public Ejemplo4ViewJIFLogin() {
+		setClosable(true);
 		setBounds(100, 100, 450, 300);
 		
 		JPanel panel = new JPanel();

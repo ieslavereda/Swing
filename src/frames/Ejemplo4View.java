@@ -12,12 +12,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JDesktopPane;
 import javax.swing.JButton;
+import java.awt.Dimension;
 
 public class Ejemplo4View extends JFrame {
 
 	private JPanel contentPane;
 	private JMenuItem mntmExit;
-	private JDesktopPane desktopPane;
+	private JDesktopPane desktop;
+	private JMenuItem mntmSesion;
 
 
 	/**
@@ -38,24 +40,34 @@ public class Ejemplo4View extends JFrame {
 		mntmExit.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/exit40.png")));
 		mnFile.add(mntmExit);
 		
-		JMenu mnNewMenu = new JMenu("Sesion");
-		mnNewMenu.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
-		menuBar.add(mnNewMenu);
+		mntmSesion = new JMenuItem("Sesion");
+		mntmSesion.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
+		mntmSesion.setSelectedIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
+		mntmSesion.setMaximumSize(new Dimension(91, 50));
+		mntmSesion.setPreferredSize(new Dimension(91, 30));
+		menuBar.add(mntmSesion);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		desktopPane = new JDesktopPane();
-		contentPane.add(desktopPane, BorderLayout.CENTER);
+		desktop = new JDesktopPane();
+		contentPane.add(desktop, BorderLayout.CENTER);
 	}
 
 
 	protected JMenuItem getMntmExit() {
 		return mntmExit;
 	}
-	protected JDesktopPane getDesktopPane() {
-		return desktopPane;
+
+	protected JDesktopPane getDesktop() {
+		return desktop;
 	}
+
+
+	protected JMenuItem getMntmSesion() {
+		return mntmSesion;
+	}
+
 	
 }
