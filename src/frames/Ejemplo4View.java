@@ -16,6 +16,8 @@ import javax.swing.JButton;
 public class Ejemplo4View extends JFrame {
 
 	private JPanel contentPane;
+	private JMenuItem mntmExit;
+	private JDesktopPane desktopPane;
 
 
 	/**
@@ -32,18 +34,28 @@ public class Ejemplo4View extends JFrame {
 		mnFile.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/file40.png")));
 		menuBar.add(mnFile);
 		
-		JMenuItem mntmExit = new JMenuItem("Exit");
+		mntmExit = new JMenuItem("Exit");
 		mntmExit.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/exit40.png")));
 		mnFile.add(mntmExit);
 		
 		JMenu mnNewMenu = new JMenu("Sesion");
+		mnNewMenu.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
 		menuBar.add(mnNewMenu);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane = new JDesktopPane();
 		contentPane.add(desktopPane, BorderLayout.CENTER);
 	}
+
+
+	protected JMenuItem getMntmExit() {
+		return mntmExit;
+	}
+	protected JDesktopPane getDesktopPane() {
+		return desktopPane;
+	}
+	
 }
