@@ -66,7 +66,6 @@ public class Ejemplo4Controler implements ActionListener {
 			jifLogin.setVisible(true);
 			view.getDesktop().add(jifLogin);			
 		}
-
 	}
 
 	private boolean estaAbierto(JInternalFrame o) {
