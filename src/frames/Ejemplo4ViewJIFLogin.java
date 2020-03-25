@@ -16,10 +16,12 @@ import java.awt.Dimension;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.JPasswordField;
 
 public class Ejemplo4ViewJIFLogin extends JInternalFrame {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textFieldLogin;
+	private JPasswordField passwordField;
+	private JButton btnOk;
 
 	/**
 	 * Create the frame.
@@ -65,7 +67,7 @@ public class Ejemplo4ViewJIFLogin extends JInternalFrame {
 		panel.add(label, BorderLayout.CENTER);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnOk = new JButton("OK");
+		btnOk = new JButton("OK");
 		btnOk.setPreferredSize(new Dimension(80, 23));
 		btnOk.setMinimumSize(new Dimension(80, 23));
 		btnOk.setMaximumSize(new Dimension(80, 23));
@@ -75,17 +77,29 @@ public class Ejemplo4ViewJIFLogin extends JInternalFrame {
 		JLabel lblLogin = new JLabel("Login");
 		panel_1.add(lblLogin, "cell 0 1");
 		
-		textField = new JTextField();
-		panel_1.add(textField, "cell 0 2,growx");
-		textField.setColumns(10);
+		textFieldLogin = new JTextField();
+		panel_1.add(textFieldLogin, "cell 0 2,growx");
+		textFieldLogin.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
 		panel_1.add(lblPassword, "cell 0 4");
 		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1, "cell 0 5,growx");
-		textField_1.setColumns(10);
+		passwordField = new JPasswordField();
+		panel_1.add(passwordField, "cell 0 5,growx");
 		getContentPane().setLayout(groupLayout);
 
 	}
+
+	public JButton getBtnOk() {
+		return btnOk;
+	}
+
+	public JTextField getTextFieldLogin() {
+		return textFieldLogin;
+	}
+
+	public JPasswordField getPasswordField() {
+		return passwordField;
+	}
+	
 }

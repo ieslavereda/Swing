@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 public class Ejemplo4Controler implements ActionListener {
 
@@ -55,8 +56,24 @@ public class Ejemplo4Controler implements ActionListener {
 			view.dispose();
 		} else if (command.equals("Abrir JIFrame Login")) {
 			abrirJIFrameSesion();
+		}  else if (command.equals("Login OK")) {
+			iniciarSesion();
 		}
 
+	}
+
+	private void iniciarSesion() {
+		
+		String login = jifLogin.getTextFieldLogin().getText();
+		String passwd = String.valueOf(jifLogin.getPasswordField().getPassword());
+		
+		if(model.comprobarLogin(login, passwd)) {
+			JOptionPane.showMessageDialog(null, "Usuario correcto!", "Info", JOptionPane.INFORMATION_MESSAGE);
+			jifLogin.dispose();
+		}else {
+			JOptionPane.showMessageDialog(null, "Usuario incorrecto!", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 
 	private void abrirJIFrameSesion() {
@@ -64,7 +81,13 @@ public class Ejemplo4Controler implements ActionListener {
 		if (!estaAbierto(jifLogin)) {				
 			jifLogin = new Ejemplo4ViewJIFLogin();
 			jifLogin.setVisible(true);
-			view.getDesktop().add(jifLogin);			
+			view.getDesktop().add(jifLogin);
+			
+			// Añadir ActionListener
+			jifLogin.getBtnOk().addActionListener(this);
+			
+			// Añadir ActionCommand
+			jifLogin.getBtnOk().setActionCommand("Login OK");
 		}
 	}
 
