@@ -24,7 +24,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-
+import frames.Alumno.SEXO;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -59,12 +59,12 @@ public class Ejemplo1 extends JFrame {
 	private JMenuItem mntmOpen;
 	private JMenuItem mntmSave;
 	private JMenuItem mntmExit;
-	private JComboBox comboBox;
-	private JLabel lblSexo;
-	private JPanel panel_3;
+	private JComboBox comboBoxProvincia;
 	private final String[] provincias = {"Álava","Albacete","Alicante","Almería","Asturias","Ávila","Badajoz","Barcelona","Burgos","Cáceres","Cádiz","Cantabria","Castellón","Ciudad Real","Córdoba","La Coruña","Cuenca","Gerona","Granada","Guadalajara","Guipúzcoa","Huelva","Huesca","Islas Baleares","Jaén","León","Lérida","Lugo","Madrid","Málaga","Murcia","Navarra","Orense","Palencia","Las Palmas","Pontevedra","La Rioja","Salamanca","Segovia","Sevilla","Soria","Tarragona","Santa Cruz de Tenerife","Teruel","Toledo","Valencia","Valladolid","Vizcaya","Zamora","Zaragoza"};
 	private JRadioButton rdbtnM;
 	private JRadioButton rdbtnH;
+	private JTextField textFieldDNI;
+	private JComboBox comboBoxYear;
 
 	/**
 	 * Launch the application.
@@ -87,6 +87,7 @@ public class Ejemplo1 extends JFrame {
 	 * Create the frame.
 	 */
 	public Ejemplo1() {
+		setResizable(false);
 
 		alumnos = new Queue<Alumno>();
 //		alumnos.add(new Alumno("Joaquin", "Alonso", 66666));
@@ -96,7 +97,7 @@ public class Ejemplo1 extends JFrame {
 
 		setTitle("Mi primer Frame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 658, 520);
+		setBounds(100, 100, 658, 411);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -143,20 +144,24 @@ public class Ejemplo1 extends JFrame {
 		panelInferior.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup().addContainerGap()
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addComponent(panelSuperior, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(panelInferior, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 381,
-										Short.MAX_VALUE))
-						.addGap(8)));
-		gl_contentPane
-				.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-						gl_contentPane.createSequentialGroup().addContainerGap()
-								.addComponent(panelSuperior, GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE).addGap(18)
-								.addComponent(panelInferior, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-								.addContainerGap()));
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panelInferior, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
+						.addComponent(panelSuperior, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(8))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelSuperior, GroupLayout.PREFERRED_SIZE, 276, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelInferior, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(119, Short.MAX_VALUE))
+		);
 		panelInferior.setLayout(new FlowLayout(FlowLayout.CENTER, 2, 5));
 
 		btnLeft = new JButton("<");
@@ -219,8 +224,8 @@ public class Ejemplo1 extends JFrame {
 				System.out.println("Has selecionado M: " + rdbtnM.isSelected());
 				System.out.println("Has selecionado H: " + rdbtnH.isSelected());
 				
-				System.out.println("Seleccionado el objeto de la posicion: " + comboBox.getSelectedIndex());
-				System.out.println("Seleccionado el objeto: " + comboBox.getSelectedItem());
+				System.out.println("Seleccionado el objeto de la posicion: " + comboBoxProvincia.getSelectedIndex());
+				System.out.println("Seleccionado el objeto: " + comboBoxProvincia.getSelectedItem());
 				
 			}
 		});
@@ -241,26 +246,57 @@ public class Ejemplo1 extends JFrame {
 		textFieldTelefono = new JTextField();
 		textFieldTelefono.setColumns(10);
 		
-		JPanel panel = new JPanel();
+		comboBoxProvincia = new JComboBox();
+		comboBoxProvincia.setMaximumRowCount(10);
+		
+		JLabel lblDni = new JLabel("DNI");
+		
+		JLabel lblYear = new JLabel("Year");
+		
+		comboBoxYear = new JComboBox();
+		
+		textFieldDNI = new JTextField();
+		textFieldDNI.setColumns(10);
+		
+		JLabel lblProvincia = new JLabel("Provincia");
+		
+		rdbtnM = new JRadioButton("M");
+		
+		rdbtnM.setSelected(true);
+			
+		rdbtnH = new JRadioButton("H");
+		
+		JLabel lblSexo = new JLabel("Sexo");
 		GroupLayout gl_panelSuperior = new GroupLayout(panelSuperior);
 		gl_panelSuperior.setHorizontalGroup(
 			gl_panelSuperior.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panelSuperior.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, gl_panelSuperior.createSequentialGroup()
-							.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblNombre)
-								.addComponent(lblApellidos)
-								.addComponent(lblTelefono))
-							.addGap(28)
-							.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_panelSuperior.createSequentialGroup()
-									.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 182, Short.MAX_VALUE))
-								.addComponent(textFieldNombre, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-								.addComponent(textFieldApellidos, GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)))
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))
+						.addComponent(lblNombre)
+						.addComponent(lblApellidos)
+						.addComponent(lblTelefono)
+						.addComponent(lblProvincia)
+						.addComponent(lblDni)
+						.addComponent(lblSexo))
+					.addGap(25)
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.LEADING)
+						.addComponent(comboBoxProvincia, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panelSuperior.createSequentialGroup()
+							.addComponent(rdbtnM)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(rdbtnH))
+						.addGroup(gl_panelSuperior.createSequentialGroup()
+							.addComponent(textFieldDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblYear)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(comboBoxYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panelSuperior.createSequentialGroup()
+							.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 436, Short.MAX_VALUE))
+						.addComponent(textFieldNombre, GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE)
+						.addComponent(textFieldApellidos, GroupLayout.DEFAULT_SIZE, 532, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panelSuperior.setVerticalGroup(
@@ -278,53 +314,38 @@ public class Ejemplo1 extends JFrame {
 					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTelefono)
 						.addComponent(textFieldTelefono, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
+					.addGap(14)
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblProvincia)
+						.addComponent(comboBoxProvincia, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDni)
+						.addComponent(lblYear)
+						.addComponent(comboBoxYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textFieldDNI, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+					.addGroup(gl_panelSuperior.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSexo)
+						.addComponent(rdbtnM)
+						.addComponent(rdbtnH))
+					.addGap(116))
 		);
-		panel.setLayout(new GridLayout(0, 2, 0, 0));
-		
-		JPanel panel_1 = new JPanel();
-		panel.add(panel_1);
-		panel_1.setLayout(new GridLayout(2, 0, 0, 0));
-		
-		JLabel lblProvincia = new JLabel("Provincia");
-		lblProvincia.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_1.add(lblProvincia);
-		
-		comboBox = new JComboBox();
-		comboBox.setMaximumRowCount(10);
 		
 		//comboBox.setModel(new DefaultComboBoxModel(new String[] {"Valencia", "Madrid"}));
 		for(String provincia : provincias)
-			comboBox.addItem(provincia);
+			comboBoxProvincia.addItem(provincia);
 		
-		panel_1.add(comboBox);
+		comboBoxProvincia.setSelectedItem("Valencia");
 		
-		JPanel panel_2 = new JPanel();
-		panel.add(panel_2);
-		panel_2.setLayout(new GridLayout(2, 0, 0, 0));
+		for(int i=1;i<=100;i++)
+			comboBoxYear.addItem(i);
 		
-		lblSexo = new JLabel("Sexo");
-		lblSexo.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_2.add(lblSexo);
-		
-		panel_3 = new JPanel();
-		panel_2.add(panel_3);
-		panel_3.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		rdbtnM = new JRadioButton("M");
-		panel_3.add(rdbtnM);		
-		
-		rdbtnM.setSelected(true);
-		rdbtnH = new JRadioButton("H");
-		panel_3.add(rdbtnH);
-		
-		
-		
+		comboBoxYear.setSelectedItem(18);
 		
 		ButtonGroup bg = new ButtonGroup();
 		bg.add(rdbtnH);
-		bg.add(rdbtnM);		
+		bg.add(rdbtnM);	
 		panelSuperior.setLayout(gl_panelSuperior);
 		contentPane.setLayout(gl_contentPane);
 
@@ -389,12 +410,20 @@ public class Ejemplo1 extends JFrame {
 	}
 
 	protected void addAlumno() {
-
+		
 		String nombre = textFieldNombre.getText();
 		String apellidos = textFieldApellidos.getText();
 		int telefono = Integer.parseInt(textFieldTelefono.getText());
+		String provincia = comboBoxProvincia.getSelectedItem().toString();
+		Alumno.SEXO sexo = (rdbtnH.isSelected())?SEXO.HOMBRE:SEXO.MUJER;
+//		if (rdbtnH.isSelected())
+//			sexo= SEXO.HOMBRE;
+//		else
+//			sexo=SEXO.MUJER;
+		String dni = textFieldDNI.getText();
+		int years = (int)comboBoxYear.getSelectedItem();
 
-		alumnos.add(new Alumno(nombre, apellidos, telefono));
+		alumnos.add(new Alumno(nombre, apellidos, telefono,provincia,sexo,dni,years));
 
 		aux = alumnos.getHead();
 
@@ -442,9 +471,18 @@ public class Ejemplo1 extends JFrame {
 		}
 
 		if (nodo != null) {
-			textFieldNombre.setText(nodo.getInfo().getNombre());
-			textFieldApellidos.setText(nodo.getInfo().getApellidos());
-			textFieldTelefono.setText(String.valueOf(nodo.getInfo().getTelefono()));
+
+			Alumno a = nodo.getInfo();
+			
+			textFieldNombre.setText(a.getNombre());
+			textFieldApellidos.setText(a.getApellidos());
+			textFieldTelefono.setText(String.valueOf(a.getTelefono()));
+			comboBoxProvincia.setSelectedItem(a.getProvincia());
+			rdbtnH.setSelected((a.getSexo()==SEXO.HOMBRE)?true:false);
+			rdbtnM.setSelected((a.getSexo()==SEXO.MUJER)?true:false);
+			textFieldDNI.setText(a.getDni());
+			comboBoxYear.setSelectedItem(a.getYears());
+			
 		}
 
 	}

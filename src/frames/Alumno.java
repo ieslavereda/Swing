@@ -3,32 +3,69 @@ package frames;
 import java.io.Serializable;
 
 public class Alumno implements Comparable, Serializable {
+	
+	public static enum SEXO {
+		HOMBRE,MUJER
+	}
 
 	private String nombre;
 	private String apellidos;
 	private int telefono;
+	private String provincia;
+	private SEXO sexo;
+	private String dni;
+	private int years;
 
-	public Alumno(String nombre, String apellidos, int telefono) {
+	public Alumno(String nombre, String apellidos, int telefono, String provincia, SEXO sexo, String dni, int years) {
+		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.telefono = telefono;
+		this.provincia = provincia;
+		this.sexo = sexo;
+		this.dni = dni;
+		this.years = years;
 	}
+	public Alumno(String nombre, String apellidos, int telefono) {
+		super();
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.telefono = telefono;		
+	}
+	
 
-	public String getNombre() {
+	protected String getNombre() {
 		return nombre;
 	}
 
-	public String getApellidos() {
+	protected String getApellidos() {
 		return apellidos;
 	}
 
-	public int getTelefono() {
+	protected int getTelefono() {
 		return telefono;
+	}
+
+	protected String getProvincia() {
+		return provincia;
+	}
+
+	protected SEXO getSexo() {
+		return sexo;
+	}
+
+	protected String getDni() {
+		return dni;
+	}
+
+	protected int getYears() {
+		return years;
 	}
 
 	@Override
 	public String toString() {
-		return "Alumno [nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + "]";
+		return "Alumno [nombre=" + nombre + ", apellidos=" + apellidos + ", telefono=" + telefono + ", provincia="
+				+ provincia + ", sexo=" + sexo + ", dni=" + dni + ", years=" + years + "]";
 	}
 
 	@Override

@@ -40,12 +40,16 @@ public class Ejemplo4View extends JFrame {
 		mntmExit.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/exit40.png")));
 		mnFile.add(mntmExit);
 		
-		mntmSesion = new JMenuItem("Sesion");
-		mntmSesion.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
+		JMenu mnNewMenu = new JMenu("Sesion");
+		mnNewMenu.setIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
+		menuBar.add(mnNewMenu);
+		
+		mntmSesion = new JMenuItem("Iniciar sesion");
+		mnNewMenu.add(mntmSesion);
+		mntmSesion.setIcon(null);
 		mntmSesion.setSelectedIcon(new ImageIcon(Ejemplo4View.class.getResource("/images/sesion40.png")));
 		mntmSesion.setMaximumSize(new Dimension(91, 50));
 		mntmSesion.setPreferredSize(new Dimension(91, 30));
-		menuBar.add(mntmSesion);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -68,6 +72,4 @@ public class Ejemplo4View extends JFrame {
 	protected JMenuItem getMntmSesion() {
 		return mntmSesion;
 	}
-
-	
 }
